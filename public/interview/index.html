@@ -54,21 +54,11 @@
 
     .container {
       width: 100%;
-      max-width: 1160px;
+      max-width: 860px;
       padding: 36px 24px 80px;
       display: flex;
       flex-direction: column;
       gap: 24px;
-    }
-
-    .row {
-      display: flex;
-      gap: 24px;
-      align-items: flex-start;
-    }
-    .row > .card {
-      flex: 1;
-      min-width: 0;
     }
 
     .hero { text-align: center; padding: 8px 0; }
@@ -248,11 +238,10 @@
       border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #ff8080; text-align: center;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 600px) {
       .container { padding: 20px 14px 60px; }
       header { padding: 14px 16px; }
       .hero h2 { font-size: 22px; }
-      .row { flex-direction: column; }
     }
   </style>
 </head>
@@ -269,9 +258,6 @@
     <h2>Ace your next interview</h2>
     <p>Upload your resume and job description — then speak your question and get a live answer.</p>
   </div>
-
-  <!-- Row 1: Resume + Job Description -->
-  <div class="row">
 
   <!-- Step 1: Resume -->
   <div class="card">
@@ -315,11 +301,6 @@
     <textarea id="jd-text" rows="5" placeholder="Copy and paste the job description from the company's careers page…" oninput="onJdInput()"></textarea>
   </div>
 
-  </div><!-- end row 1 -->
-
-  <!-- Row 2: Voice + Answer -->
-  <div class="row" id="voice-answer-row">
-
   <!-- Step 3: Voice -->
   <div class="card">
     <div class="card-header">
@@ -361,7 +342,7 @@
         </button>
       </div>
     </div>
-  </div><!-- end voice card -->
+  </div>
 
   <!-- Live Answer -->
   <div class="card answer-card" id="answer-card">
@@ -379,9 +360,7 @@
     <div class="answer-box" id="answer-box">
       <span id="answer-text"></span><span class="cursor hidden" id="cursor"></span>
     </div>
-  </div><!-- end answer card -->
-
-  </div><!-- end row 2 -->
+  </div>
 </div>
 
 <script>
