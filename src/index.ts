@@ -41,8 +41,8 @@ app.use('/api/challenge', challengeRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/interview', interviewRouter);
 
-// Serve the interview web app (static files bundled via vercel.json includeFiles)
-app.use('/interview', express.static(resolve(__dirname, '../public/interview')));
+// Serve all public static files: home, about, login, register, interview, auth.js, styles.css
+app.use(express.static(resolve(__dirname, '../public')));
 
 // Export for Vercel serverless — Vercel imports this module directly
 export default app;
