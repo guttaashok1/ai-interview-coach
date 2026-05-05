@@ -57,8 +57,17 @@
     header span { font-size: 13px; color: var(--text-muted); margin-left: 4px; }
     .header-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
     .header-user { font-size: 13px; color: var(--text-muted); }
+    .header-quota { font-size: 12px; color: var(--text-muted); }
+    .header-quota.warn { color: var(--danger); }
     .header-home { font-size: 13px; color: var(--text-muted); text-decoration: none; }
     .header-home:hover { color: var(--text); }
+    .btn-nav-filled {
+      background: var(--accent); color: #fff;
+      border-radius: 7px; font-size: 14px; font-weight: 600;
+      cursor: pointer; border: none; transition: box-shadow 0.2s;
+      text-decoration: none;
+    }
+    .btn-nav-filled:hover { box-shadow: 0 0 16px rgba(108,99,255,0.45); }
     .btn-logout {
       padding: 6px 14px; border-radius: 7px; font-size: 13px; font-weight: 600;
       background: transparent; border: 1px solid var(--border); color: var(--text-muted);
@@ -267,7 +276,10 @@
   <span>AI-powered practice</span>
   <div class="header-right">
     <a href="/" class="header-home">← Home</a>
+    <a href="/admin.html" id="admin-link" class="header-home" style="display:none">⚙️ Admin</a>
     <span class="header-user" id="header-user"></span>
+    <span class="header-quota" id="header-quota"></span>
+    <a href="/pricing.html" id="upgrade-btn" class="btn-nav-filled" style="display:none;font-size:12px;padding:5px 12px">⚡ Upgrade</a>
     <button class="btn-logout" onclick="Auth.logout()">Log out</button>
   </div>
 </header>
@@ -387,6 +399,25 @@
   const _session = Auth.requireAuth();
   if (_session) {
     document.getElementById('header-user').textContent = '👤 ' + _session.username;
+  }
+
+  if (_session && _session.role === 'admin') {
+    document.getElementById('admin-link').style.display = '';
+  }
+
+  function updateQuota() {
+    const el = document.getElementById('header-quota');
+    if (!el) return;
+    const rem = Auth.getRemainingQuestions();
+    if (rem === Infinity) { el.textContent = ''; return; }
+    el.textContent = rem + ' questions left today';
+    el.className = 'header-quota' + (rem <= 3 ? ' warn' : '');
+  }
+  updateQuota();
+
+  const upgradeBtn = document.getElementById('upgrade-btn');
+  if (upgradeBtn && _session && _session.role !== 'admin' && _session.plan !== 'pro') {
+    upgradeBtn.style.display = '';
   }
 
   // ── State ──────────────────────────────────────────────────────────────────
@@ -592,6 +623,20 @@
 
   // ── Streaming answer ───────────────────────────────────────────────────────
   async function triggerAnswer() {
+    if (!Auth.canAskQuestion()) {
+      showTranscript('');
+      setStatus('', 'Daily limit reached — upgrade to Pro for unlimited questions');
+      const card = document.getElementById('answer-card');
+      card.style.display = 'block';
+      document.getElementById('answer-text').textContent = '⚠️ You\'ve used all 10 free questions for today. Upgrade to Pro for unlimited access.';
+      document.getElementById('answer-actions').style.display = 'none';
+      document.getElementById('cursor').className = 'cursor hidden';
+      document.getElementById('answer-box').className = 'answer-box';
+      return;
+    }
+    Auth.incrementQuestionCount();
+    updateQuota();
+
     clearTimeout(debounceTimer);
     const question = currentQuestion.trim();
     if (!question || !contextReady()) return;

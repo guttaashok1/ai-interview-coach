@@ -62,6 +62,7 @@ window.Auth = (() => {
       username: user.username,
       email: user.email,
       role: user.role,
+      plan: user.plan || 'free',
       token: crypto.randomUUID(),
     };
     sessionStorage.setItem('ic_session', JSON.stringify(session));
@@ -84,10 +85,35 @@ window.Auth = (() => {
       email: email.trim().toLowerCase(),
       passwordHash: hash,
       role: 'user',
+      plan: 'free',
       createdAt: new Date().toISOString(),
     });
     saveUsers(users);
     return { success: true };
+  }
+
+  // ── Question limit helpers ──────────────────────────────────────────────────
+  function getTodayKey() {
+    return 'ic_q_' + new Date().toISOString().slice(0, 10);
+  }
+  function getQuestionsUsedToday() {
+    return parseInt(localStorage.getItem(getTodayKey()) || '0');
+  }
+  function incrementQuestionCount() {
+    const key = getTodayKey();
+    localStorage.setItem(key, String(getQuestionsUsedToday() + 1));
+  }
+  function canAskQuestion() {
+    const session = getSession();
+    if (!session) return false;
+    if (session.role === 'admin' || session.plan === 'pro') return true;
+    return getQuestionsUsedToday() < 10;
+  }
+  function getRemainingQuestions() {
+    const session = getSession();
+    if (!session) return 0;
+    if (session.role === 'admin' || session.plan === 'pro') return Infinity;
+    return Math.max(0, 10 - getQuestionsUsedToday());
   }
 
   // Renders auth nav links into an element with id="nav-auth"
@@ -109,5 +135,8 @@ window.Auth = (() => {
     }
   }
 
-  return { ensureAdmin, login, logout, register, getSession, requireAuth, renderNav };
+  return {
+    ensureAdmin, login, logout, register, getSession, requireAuth, renderNav,
+    canAskQuestion, getRemainingQuestions, incrementQuestionCount,
+  };
 })();
