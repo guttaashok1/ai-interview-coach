@@ -9,8 +9,8 @@
     /* ── Hero ── */
     .hero {
       text-align: center;
-      padding: 90px 24px 80px;
-      max-width: 760px;
+      padding: 90px 48px 80px;
+      max-width: 1200px;
       margin: 0 auto;
     }
     .hero-pill {
@@ -43,7 +43,7 @@
     /* ── Mock preview ── */
     .hero-mock {
       margin: 60px auto 0;
-      max-width: 780px;
+      max-width: 100%;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 16px;
@@ -82,8 +82,8 @@
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
 
     /* ── Features ── */
-    .features { padding: 80px 24px; }
-    .features-inner { max-width: 1100px; margin: 0 auto; }
+    .features { padding: 80px 48px; }
+    .features-inner { max-width: 1200px; margin: 0 auto; }
     .section-head { text-align: center; margin-bottom: 52px; }
     .section-head h2 { font-size: 36px; font-weight: 800; letter-spacing: -0.4px; }
     .section-head p { color: var(--text-muted); margin-top: 12px; font-size: 16px; }
@@ -105,8 +105,8 @@
     .feature-card p { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
 
     /* ── How it works ── */
-    .how { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 24px; }
-    .how-inner { max-width: 1000px; margin: 0 auto; }
+    .how { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 48px; }
+    .how-inner { max-width: 1200px; margin: 0 auto; }
     .steps {
       display: flex;
       align-items: flex-start;
@@ -130,13 +130,17 @@
 
     /* ── CTA banner ── */
     .cta-banner {
-      padding: 90px 24px;
+      padding: 90px 48px;
       text-align: center;
     }
     .cta-banner h2 { font-size: 36px; font-weight: 800; letter-spacing: -0.4px; margin-bottom: 14px; }
     .cta-banner p { color: var(--text-muted); font-size: 16px; margin-bottom: 32px; }
 
     @media (max-width: 640px) {
+      .hero { padding: 60px 20px 60px; }
+      .features { padding: 60px 20px; }
+      .how { padding: 60px 20px; }
+      .cta-banner { padding: 60px 20px; }
       .mock-body { grid-template-columns: 1fr; }
       .step-arrow { display: none; }
     }
