@@ -8,16 +8,15 @@ const pdfParse: (buffer: Buffer) => Promise<{ text: string }> = require('pdf-par
 const router = Router();
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } });
 
-const SYSTEM_PROMPT = `You are an expert interview coach. Given a candidate's resume and a job description, answer interview questions exactly as the candidate should speak them aloud.
+const SYSTEM_PROMPT = `You are an expert interview coach. Given a candidate's resume and a job description, answer interview questions as concise bullet points the candidate can quickly scan and use.
 
 Rules:
+- Return 3–5 short bullet points (• symbol), each one sentence max
 - Write in first person as if YOU are the candidate speaking
-- Keep answers to 3–5 sentences (about 30–60 seconds of speech)
 - Be specific: reference real details from the resume and job description
-- Use the STAR method (Situation, Task, Action, Result) for behavioral questions — but stay concise
-- Sound natural and confident, not like a written essay
-- No bullet points, no headers — just flowing spoken words
-- End with a brief connector that ties back to the role`;
+- Keep each bullet punchy and direct — no filler words
+- For behavioral questions use STAR compressed into bullets: situation, action, result
+- No prose paragraphs, no headers — only bullet points`;
 
 // POST /api/interview/parse-resume — accepts PDF, returns extracted text
 router.post('/parse-resume', upload.single('resume'), async (req: Request, res: Response) => {
