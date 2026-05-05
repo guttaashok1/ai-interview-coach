@@ -3,228 +3,404 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Interview Coach — AI-Powered Practice</title>
+  <title>Interview Coach — AI-Powered Interview Practice</title>
   <link rel="stylesheet" href="/styles.css" />
   <style>
-    /* ── Dot grid background ── */
+    /* ── Reset page to clean professional look ── */
     body {
-      background-image: radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1px);
-      background-size: 28px 28px;
+      background: #09090f;
+      background-image: none;
     }
 
-    /* ── Hero ── */
+    /* ── HERO ── */
     .hero {
-      padding: 72px 48px 64px;
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: center;
-    }
-    .hero-left { text-align: left; }
-
-    .hero-tag {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(163,230,53,0.12);
-      border: 1px solid rgba(163,230,53,0.35);
-      color: #bef264;
-      padding: 5px 14px;
-      border-radius: 999px;
-      font-size: 12px; font-weight: 700;
-      margin-bottom: 24px;
-      letter-spacing: 0.3px;
-    }
-
-    .hero h1 {
-      font-size: clamp(40px, 4.5vw, 64px);
-      font-weight: 900;
-      letter-spacing: -2px;
-      line-height: 1.0;
-      margin-bottom: 20px;
-    }
-    .hero h1 em {
-      font-style: normal;
-      -webkit-text-fill-color: transparent;
-      background: linear-gradient(135deg, #7c3aed, #f059da);
-      -webkit-background-clip: text;
-      background-clip: text;
-    }
-    .hero h1 .lime {
-      -webkit-text-fill-color: transparent;
-      background: linear-gradient(135deg, #a3e635, #34d399);
-      -webkit-background-clip: text;
-      background-clip: text;
-    }
-
-    .hero p {
-      font-size: 16px;
-      color: var(--text-muted);
-      margin: 0 0 32px;
-      line-height: 1.75;
-      max-width: 420px;
-    }
-    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-    .hero-social { font-size: 12px; color: var(--text-muted); margin-top: 20px; }
-    .hero-social strong { color: #bef264; }
-
-    /* ── Mock preview ── */
-    .hero-mock {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.10);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(124,58,237,0.15), inset 0 1px 0 rgba(255,255,255,0.08);
-    }
-    .mock-bar {
-      background: rgba(255,255,255,0.04);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      padding: 10px 16px;
-      display: flex; align-items: center; gap: 7px;
-    }
-    .mock-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .mock-body { padding: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .mock-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px; padding: 14px;
-    }
-    .mock-label { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
-    .mock-bar-text { height: 8px; border-radius: 4px; background: rgba(255,255,255,0.08); margin-bottom: 6px; }
-    .mock-recording {
-      grid-column: 1 / -1;
-      background: rgba(163,230,53,0.07);
-      border: 1px solid rgba(163,230,53,0.2);
-      border-radius: 12px; padding: 14px 16px;
-      display: flex; align-items: flex-start; gap: 12px;
-    }
-    .mock-dot-live { width: 9px; height: 9px; border-radius: 50%; background: #a3e635; animation: blink 1s infinite; flex-shrink: 0; margin-top: 4px; }
-    .mock-answer { font-size: 12px; color: #bef264; line-height: 1.6; }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
-
-    /* ── Marquee ── */
-    .marquee-wrap {
-      overflow: hidden;
-      border-top: 1px solid rgba(255,255,255,0.07);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      background: rgba(163,230,53,0.04);
-      padding: 13px 0;
-    }
-    .marquee-track {
-      display: flex; gap: 0;
-      width: max-content;
-      animation: marquee 28s linear infinite;
-    }
-    .marquee-item {
-      display: flex; align-items: center; gap: 20px;
-      padding: 0 28px;
-      font-size: 13px; font-weight: 600;
-      color: rgba(255,255,255,0.5);
-      white-space: nowrap;
-    }
-    .marquee-item .dot { color: #a3e635; font-size: 8px; }
-    @keyframes marquee { from { transform: translateX(0) } to { transform: translateX(-50%) } }
-
-    /* ── Features bento ── */
-    .features { padding: 80px 48px; }
-    .features-inner { max-width: 1200px; margin: 0 auto; }
-    .section-head { margin-bottom: 48px; }
-    .section-label {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 11px; font-weight: 700; color: #a3e635;
-      text-transform: uppercase; letter-spacing: 1.5px;
-      margin-bottom: 12px;
-    }
-    .section-label::before { content: ''; width: 20px; height: 2px; background: #a3e635; border-radius: 2px; }
-    .section-head h2 { font-size: 38px; font-weight: 900; letter-spacing: -0.5px; }
-    .section-head p { color: var(--text-muted); margin-top: 10px; font-size: 16px; }
-
-    .bento-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: auto auto;
-      gap: 14px;
-    }
-    .bento-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      backdrop-filter: blur(12px);
-      border-radius: 16px;
-      padding: 24px;
-      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
-    }
-    .bento-card:hover {
-      border-color: rgba(124,58,237,0.45);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 40px rgba(124,58,237,0.15);
-    }
-    .bento-card.wide { grid-column: span 2; }
-    .bento-card.lime-accent { border-color: rgba(163,230,53,0.2); }
-    .bento-card.lime-accent:hover { border-color: rgba(163,230,53,0.5); box-shadow: 0 12px 40px rgba(163,230,53,0.12); }
-    .bento-icon { font-size: 28px; margin-bottom: 14px; }
-    .bento-card h3 { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
-    .bento-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
-    .bento-card.wide p { max-width: 380px; }
-
-    /* ── How it works ── */
-    .how { background: rgba(255,255,255,0.02); border-top: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 80px 48px; }
-    .how-inner { max-width: 1200px; margin: 0 auto; }
-    .steps { display: flex; align-items: flex-start; gap: 8px; margin-top: 48px; flex-wrap: wrap; justify-content: center; }
-    .step { text-align: center; flex: 1; min-width: 160px; max-width: 220px; }
-    .step-num {
-      width: 48px; height: 48px;
-      background: linear-gradient(135deg, var(--accent), #f059da);
-      border-radius: 14px;
-      font-size: 20px; font-weight: 900;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 14px;
-      box-shadow: 0 8px 24px rgba(124,58,237,0.4);
-    }
-    .step h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
-    .step p { font-size: 13px; color: var(--text-muted); }
-    .step-arrow { font-size: 20px; color: rgba(255,255,255,0.15); padding-top: 14px; }
-
-    /* ── CTA banner ── */
-    .cta-banner {
-      padding: 100px 48px;
-      text-align: center;
       position: relative;
+      overflow: hidden;
+      padding: 0;
+      background: linear-gradient(160deg, #0d0d1a 0%, #09090f 60%);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
     }
-    .cta-banner::before {
+    .hero::before {
       content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 50% 50%, rgba(124,58,237,0.14) 0%, transparent 70%);
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(37,99,235,0.18) 0%, transparent 65%);
       pointer-events: none;
     }
-    .cta-banner h2 { font-size: 48px; font-weight: 900; letter-spacing: -1px; margin-bottom: 14px; line-height: 1.05; }
-    .cta-banner p { color: var(--text-muted); font-size: 17px; margin-bottom: 36px; }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      min-height: 600px;
+      gap: 80px;
+    }
+    .hero-copy { padding: 80px 0; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: #60a5fa;
+      margin-bottom: 20px;
+    }
+    .hero-eyebrow::before {
+      content: ''; width: 24px; height: 2px;
+      background: #2563eb; border-radius: 2px;
+    }
+    .hero h1 {
+      font-size: clamp(36px, 4vw, 56px);
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      line-height: 1.08;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, #60a5fa, #2563eb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 17px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.75;
+      margin-bottom: 36px;
+      max-width: 440px;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 
-    /* ── Responsive ── */
+    /* Hero product image panel */
+    .hero-visual {
+      position: relative;
+      align-self: stretch;
+      display: flex;
+      align-items: center;
+      padding: 40px 0;
+    }
+    .hero-screen {
+      width: 100%;
+      background: #12121f;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(37,99,235,0.12);
+    }
+    .hs-topbar {
+      display: flex; align-items: center; gap: 8px;
+      padding: 12px 16px;
+      background: #0d0d1a;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .hs-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .hs-title { font-size: 13px; color: rgba(255,255,255,0.4); margin-left: 6px; font-weight: 500; }
+    .hs-body { padding: 20px; }
+    .hs-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .hs-panel {
+      background: #1a1a2e;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 14px;
+    }
+    .hs-panel-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.8px;
+      text-transform: uppercase; color: rgba(255,255,255,0.35);
+      margin-bottom: 10px;
+    }
+    .hs-line { height: 7px; border-radius: 4px; background: rgba(255,255,255,0.08); margin-bottom: 6px; }
+    .hs-voice {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(37,99,235,0.1);
+      border: 1px solid rgba(37,99,235,0.25);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+    }
+    .hs-mic {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: #2563eb;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; flex-shrink: 0;
+      box-shadow: 0 0 12px rgba(37,99,235,0.5);
+    }
+    .hs-voice-text { font-size: 12px; color: rgba(255,255,255,0.5); }
+    .hs-voice-q { font-size: 13px; color: #fff; font-weight: 600; margin-top: 2px; }
+    .hs-answer {
+      background: #1a1a2e;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 14px;
+    }
+    .hs-answer-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.8px;
+      text-transform: uppercase; color: #60a5fa;
+      margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+    }
+    .hs-pulse {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #60a5fa; animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
+    .hs-bullet { display: flex; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.65); margin-bottom: 6px; line-height: 1.5; }
+    .hs-bullet::before { content: '•'; color: #60a5fa; flex-shrink: 0; }
+
+    /* ── TRUST BAR ── */
+    .trust-bar {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 28px 48px;
+      background: rgba(255,255,255,0.015);
+    }
+    .trust-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; gap: 48px; flex-wrap: wrap;
+    }
+    .trust-label {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.35); white-space: nowrap; flex-shrink: 0;
+    }
+    .trust-logos {
+      display: flex; align-items: center; gap: 40px; flex-wrap: wrap; flex: 1;
+    }
+    .trust-logo {
+      font-size: 15px; font-weight: 800; letter-spacing: -0.3px;
+      color: rgba(255,255,255,0.2); transition: color 0.2s;
+    }
+    .trust-logo:hover { color: rgba(255,255,255,0.4); }
+
+    /* ── FEATURE SECTIONS ── */
+    .feature-section {
+      padding: 96px 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .feature-section:nth-child(even) { background: rgba(255,255,255,0.015); }
+    .feature-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .feature-inner.reverse { direction: rtl; }
+    .feature-inner.reverse > * { direction: ltr; }
+    .feature-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: #60a5fa;
+      margin-bottom: 16px;
+    }
+    .feature-section h2 {
+      font-size: clamp(28px, 3vw, 40px);
+      font-weight: 900; letter-spacing: -0.8px;
+      line-height: 1.15; margin-bottom: 18px;
+    }
+    .feature-section p {
+      font-size: 16px; color: rgba(255,255,255,0.55);
+      line-height: 1.75; margin-bottom: 28px; max-width: 440px;
+    }
+    .feature-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 700; color: #60a5fa;
+      transition: gap 0.2s;
+    }
+    .feature-link:hover { gap: 12px; }
+
+    /* Feature visuals */
+    .feat-visual {
+      background: #12121f;
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    }
+    .feat-visual-header {
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.03);
+    }
+    .feat-visual-body { padding: 24px; }
+
+    /* Voice visual */
+    .voice-waves {
+      display: flex; align-items: center; justify-content: center;
+      gap: 4px; height: 60px; margin-bottom: 20px;
+    }
+    .wave-bar {
+      width: 4px; border-radius: 4px;
+      background: linear-gradient(to top, #1d4ed8, #60a5fa);
+      animation: wave 1.2s ease-in-out infinite;
+    }
+    .wave-bar:nth-child(1) { height: 20px; animation-delay: 0s; }
+    .wave-bar:nth-child(2) { height: 36px; animation-delay: 0.1s; }
+    .wave-bar:nth-child(3) { height: 48px; animation-delay: 0.2s; }
+    .wave-bar:nth-child(4) { height: 56px; animation-delay: 0.15s; }
+    .wave-bar:nth-child(5) { height: 44px; animation-delay: 0.25s; }
+    .wave-bar:nth-child(6) { height: 36px; animation-delay: 0.1s; }
+    .wave-bar:nth-child(7) { height: 52px; animation-delay: 0.3s; }
+    .wave-bar:nth-child(8) { height: 40px; animation-delay: 0.05s; }
+    .wave-bar:nth-child(9) { height: 28px; animation-delay: 0.2s; }
+    .wave-bar:nth-child(10) { height: 18px; animation-delay: 0s; }
+    @keyframes wave { 0%,100%{transform:scaleY(1)} 50%{transform:scaleY(0.4)} }
+    .voice-transcript {
+      background: rgba(37,99,235,0.08);
+      border: 1px solid rgba(37,99,235,0.2);
+      border-radius: 10px; padding: 16px;
+      font-size: 14px; color: rgba(255,255,255,0.7);
+      line-height: 1.6; font-style: italic;
+    }
+    .voice-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(37,99,235,0.15); border: 1px solid rgba(37,99,235,0.3);
+      border-radius: 999px; padding: 4px 12px;
+      font-size: 11px; font-weight: 700; color: #93c5fd;
+      margin-bottom: 16px;
+    }
+    .rec-dot { width: 7px; height: 7px; border-radius: 50%; background: #ef4444; animation: blink2 1s infinite; }
+    @keyframes blink2 { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    /* Resume visual */
+    .resume-visual-body { padding: 24px; }
+    .resume-file {
+      display: flex; align-items: center; gap: 12px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 10px; padding: 14px 16px;
+      margin-bottom: 16px;
+    }
+    .resume-icon { font-size: 24px; }
+    .resume-filename { font-size: 14px; font-weight: 600; color: #fff; }
+    .resume-meta { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+    .resume-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .resume-tag {
+      background: rgba(37,99,235,0.12); border: 1px solid rgba(37,99,235,0.25);
+      border-radius: 999px; padding: 4px 12px;
+      font-size: 12px; font-weight: 600; color: #93c5fd;
+    }
+    .resume-progress {
+      background: rgba(255,255,255,0.05);
+      border-radius: 4px; height: 6px; overflow: hidden; margin-bottom: 8px;
+    }
+    .resume-fill { height: 100%; background: linear-gradient(90deg, #1d4ed8, #60a5fa); border-radius: 4px; }
+    .resume-progress-label { font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 14px; }
+
+    /* Answer visual */
+    .answer-visual-body { padding: 24px; }
+    .answer-question {
+      font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.04);
+      border-left: 3px solid #2563eb;
+      padding: 10px 14px; border-radius: 0 8px 8px 0;
+      margin-bottom: 16px;
+    }
+    .answer-bullets { list-style: none; }
+    .answer-bullets li {
+      display: flex; gap: 10px;
+      font-size: 13px; color: rgba(255,255,255,0.7);
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      line-height: 1.5;
+      align-items: flex-start;
+    }
+    .answer-bullets li:last-child { border-bottom: none; }
+    .answer-bullets li::before { content: '•'; color: #60a5fa; flex-shrink: 0; margin-top: 1px; }
+    .answer-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 700; color: #60a5fa;
+      margin-bottom: 12px;
+    }
+
+    /* ── STATS ── */
+    .stats-section {
+      padding: 80px 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: rgba(37,99,235,0.04);
+    }
+    .stats-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 40px; text-align: center;
+    }
+    .stat-num {
+      font-size: 56px; font-weight: 900; letter-spacing: -2px;
+      background: linear-gradient(135deg, #fff, #60a5fa);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .stat-label { font-size: 15px; color: rgba(255,255,255,0.5); font-weight: 500; }
+
+    /* ── CTA BANNER ── */
+    .cta-section {
+      padding: 100px 48px;
+      text-align: center;
+      background: linear-gradient(180deg, #09090f 0%, #0d1a3a 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 100%, rgba(37,99,235,0.2) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .cta-section h2 {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 900; letter-spacing: -1px; margin-bottom: 16px;
+    }
+    .cta-section p { font-size: 17px; color: rgba(255,255,255,0.5); margin-bottom: 36px; }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      background: #060609;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 60px 48px 36px;
+    }
+    .footer-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px; margin-bottom: 48px;
+    }
+    .footer-brand .nav-logo { display: inline-flex; margin-bottom: 16px; }
+    .footer-brand p { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.7; max-width: 280px; }
+    .footer-col h4 { font-size: 13px; font-weight: 700; letter-spacing: 0.5px; color: rgba(255,255,255,0.8); margin-bottom: 16px; }
+    .footer-col a {
+      display: block; font-size: 13px; color: rgba(255,255,255,0.4);
+      margin-bottom: 10px; transition: color 0.2s;
+    }
+    .footer-col a:hover { color: rgba(255,255,255,0.8); }
+    .footer-bottom {
+      max-width: 1200px; margin: 0 auto;
+      padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 13px; color: rgba(255,255,255,0.3); flex-wrap: wrap; gap: 12px;
+    }
+
+    /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; padding: 60px 32px; gap: 48px; }
-      .hero-left { text-align: center; }
-      .hero p { margin: 0 auto 32px; }
-      .hero-cta { justify-content: center; }
-      .hero-social { text-align: center; }
-      .bento-grid { grid-template-columns: repeat(2, 1fr); }
-      .bento-card.wide { grid-column: span 2; }
+      .hero-inner { grid-template-columns: 1fr; min-height: auto; gap: 48px; }
+      .hero-visual { padding: 0 0 40px; }
+      .hero-copy { padding: 60px 0 0; }
+      .feature-inner { grid-template-columns: 1fr; gap: 48px; }
+      .feature-inner.reverse { direction: ltr; }
+      .stats-inner { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .trust-inner { gap: 24px; }
     }
     @media (max-width: 640px) {
-      .hero { padding: 48px 20px; }
-      .features { padding: 60px 20px; }
-      .how { padding: 60px 20px; }
-      .cta-banner { padding: 72px 20px; }
-      .cta-banner h2 { font-size: 34px; }
-      .bento-grid { grid-template-columns: 1fr; }
-      .bento-card.wide { grid-column: span 1; }
-      .step-arrow { display: none; }
+      .hero-inner, .feature-section, .stats-section, .cta-section { padding-left: 20px; padding-right: 20px; }
+      .trust-bar { padding: 20px; }
+      .site-footer { padding: 40px 20px 24px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .stats-inner { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
 <body>
 
+<!-- Nav -->
 <nav class="nav">
   <div class="nav-inner">
     <a href="/" class="nav-logo">
@@ -242,163 +418,230 @@
 
 <!-- Hero -->
 <section class="hero">
-  <div class="hero-left">
-    <div class="hero-tag">✦ AI-Powered · Free to Use</div>
-    <h1>Ace your<br>next <em>interview</em><br>with <span class="lime">AI</span></h1>
-    <p>Upload your resume, paste a job description, and speak any interview question out loud — get real-time, tailored coaching word by word.</p>
-    <div class="hero-cta">
-      <a href="/register.html" class="btn btn-primary btn-lg">Get Started Free →</a>
-      <a href="/login.html" class="btn btn-outline btn-lg">Sign In</a>
-    </div>
-    <div class="hero-social">No credit card · <strong>Free forever</strong> · Works in your browser</div>
-  </div>
-
-  <div class="hero-mock">
-    <div class="mock-bar">
-      <div class="mock-dot" style="background:#ff5f57"></div>
-      <div class="mock-dot" style="background:#febc2e"></div>
-      <div class="mock-dot" style="background:#28c840"></div>
-      <span style="font-size:12px;color:var(--text-muted);margin-left:8px">Interview Coach</span>
-    </div>
-    <div class="mock-body">
-      <div class="mock-card">
-        <div class="mock-label">Your Resume</div>
-        <div class="mock-bar-text" style="width:90%"></div>
-        <div class="mock-bar-text" style="width:70%"></div>
-        <div class="mock-bar-text" style="width:80%"></div>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <div class="hero-eyebrow">AI-Powered Interview Practice</div>
+      <h1>Practice interviews.<br><span>Land the job.</span></h1>
+      <p class="hero-sub">Upload your resume, paste a job description, and speak any interview question out loud — get real-time, tailored AI coaching word by word.</p>
+      <div class="hero-actions">
+        <a href="/register.html" class="btn btn-primary btn-lg">Get Started Free</a>
+        <a href="/about.html" class="btn btn-outline btn-lg">See How It Works</a>
       </div>
-      <div class="mock-card">
-        <div class="mock-label">Job Description</div>
-        <div class="mock-bar-text" style="width:85%"></div>
-        <div class="mock-bar-text" style="width:60%"></div>
-        <div class="mock-bar-text" style="width:75%"></div>
-      </div>
-      <div class="mock-recording">
-        <div class="mock-dot-live"></div>
-        <div>
-          <div style="font-size:11px;color:var(--text-muted);margin-bottom:5px">AI Coach Answer · streaming…</div>
-          <div class="mock-answer">• Led team of 5 engineers migrating to microservices<br>• Reduced deployment time by 60% within 6 months<br>• Used STAR method: cross-functional collaboration</div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-screen">
+        <div class="hs-topbar">
+          <div class="hs-dot" style="background:#ff5f57"></div>
+          <div class="hs-dot" style="background:#febc2e"></div>
+          <div class="hs-dot" style="background:#28c840"></div>
+          <span class="hs-title">Interview Coach — Practice Session</span>
+        </div>
+        <div class="hs-body">
+          <div class="hs-row">
+            <div class="hs-panel">
+              <div class="hs-panel-label">Your Resume</div>
+              <div class="hs-line" style="width:88%"></div>
+              <div class="hs-line" style="width:72%"></div>
+              <div class="hs-line" style="width:80%"></div>
+              <div class="hs-line" style="width:65%"></div>
+            </div>
+            <div class="hs-panel">
+              <div class="hs-panel-label">Job Description</div>
+              <div class="hs-line" style="width:82%"></div>
+              <div class="hs-line" style="width:68%"></div>
+              <div class="hs-line" style="width:75%"></div>
+              <div class="hs-line" style="width:58%"></div>
+            </div>
+          </div>
+          <div class="hs-voice">
+            <div class="hs-mic">🎙️</div>
+            <div>
+              <div class="hs-voice-text">Listening…</div>
+              <div class="hs-voice-q">"Tell me about a time you led a team under pressure"</div>
+            </div>
+          </div>
+          <div class="hs-answer">
+            <div class="hs-answer-label"><div class="hs-pulse"></div> AI Coach Answer · streaming</div>
+            <div class="hs-bullet">Led 5-engineer team migrating monolith to microservices on a 3-month deadline</div>
+            <div class="hs-bullet">Held daily standups + unblocked dependencies — team shipped on time</div>
+            <div class="hs-bullet">Deployment time dropped 60%; zero production incidents post-launch</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Marquee ticker -->
-<div class="marquee-wrap">
-  <div class="marquee-track">
-    <div class="marquee-item"><span>Voice-Powered AI</span><span class="dot">✦</span><span>Resume-Aware</span><span class="dot">✦</span><span>Free Forever</span><span class="dot">✦</span><span>Live Streaming</span><span class="dot">✦</span><span>No Credit Card</span><span class="dot">✦</span><span>Ace Your Interview</span><span class="dot">✦</span><span>Private & Secure</span><span class="dot">✦</span><span>Role-Targeted Answers</span><span class="dot">✦</span></div>
-    <div class="marquee-item"><span>Voice-Powered AI</span><span class="dot">✦</span><span>Resume-Aware</span><span class="dot">✦</span><span>Free Forever</span><span class="dot">✦</span><span>Live Streaming</span><span class="dot">✦</span><span>No Credit Card</span><span class="dot">✦</span><span>Ace Your Interview</span><span class="dot">✦</span><span>Private & Secure</span><span class="dot">✦</span><span>Role-Targeted Answers</span><span class="dot">✦</span></div>
-  </div>
-</div>
-
-<!-- Ad Zone A -->
-<div class="ad-zone">
-  <div class="ad-label">Advertisement</div>
-  <div class="ad-content">
-    <span>728 × 90 — Ad Space</span>
-  </div>
-</div>
-
-<!-- Features bento grid -->
-<section class="features" id="features">
-  <div class="features-inner">
-    <div class="section-head">
-      <div class="section-label">Features</div>
-      <h2>Everything you need<br>to prepare</h2>
-      <p>Practice like it's the real thing — before it matters</p>
+<!-- Trust bar -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-label">Practiced by candidates applying to</div>
+    <div class="trust-logos">
+      <span class="trust-logo">Google</span>
+      <span class="trust-logo">Amazon</span>
+      <span class="trust-logo">Microsoft</span>
+      <span class="trust-logo">Meta</span>
+      <span class="trust-logo">Apple</span>
+      <span class="trust-logo">Stripe</span>
+      <span class="trust-logo">Salesforce</span>
     </div>
-    <div class="bento-grid">
-      <div class="bento-card wide lime-accent">
-        <div class="bento-icon">🎙️</div>
-        <h3>Voice-Powered Practice</h3>
-        <p>Speak your question naturally — no buttons to click. The AI listens continuously and responds the moment you pause. Just talk like you're in the room.</p>
+  </div>
+</div>
+
+<!-- Feature 1: Voice Input -->
+<section class="feature-section" id="features">
+  <div class="feature-inner">
+    <div class="feature-copy">
+      <div class="feature-eyebrow">Voice Recognition</div>
+      <h2>Just speak — no buttons, no scripts</h2>
+      <p>Interview Coach listens continuously through your browser's microphone. Ask any question naturally, the same way you would in a real interview room. The moment you pause, AI responds.</p>
+      <a href="/register.html" class="feature-link">Start practicing free →</a>
+    </div>
+    <div class="feat-visual">
+      <div class="feat-visual-header">
+        <div class="mock-dot" style="background:#ff5f57;width:10px;height:10px;border-radius:50%"></div>
+        <div class="mock-dot" style="background:#febc2e;width:10px;height:10px;border-radius:50%"></div>
+        <div class="mock-dot" style="background:#28c840;width:10px;height:10px;border-radius:50%"></div>
       </div>
-      <div class="bento-card">
-        <div class="bento-icon">📄</div>
-        <h3>Resume-Aware</h3>
-        <p>Answers reference your actual experience, skills, and accomplishments from your resume PDF.</p>
-      </div>
-      <div class="bento-card">
-        <div class="bento-icon">⚡</div>
-        <h3>Live Streaming</h3>
-        <p>Watch answers stream word-by-word in real time — like a coach whispering in your ear.</p>
-      </div>
-      <div class="bento-card">
-        <div class="bento-icon">🎯</div>
-        <h3>Role-Targeted</h3>
-        <p>Paste any job description and get answers crafted for that exact role, company, and requirements.</p>
-      </div>
-      <div class="bento-card">
-        <div class="bento-icon">🔊</div>
-        <h3>Read Aloud</h3>
-        <p>Hear exactly how your answer sounds — practice delivery, not just content.</p>
-      </div>
-      <div class="bento-card wide">
-        <div class="bento-icon">🔒</div>
-        <h3>Private & Secure by Design</h3>
-        <p>Your resume and job description stay in your browser session — never stored on servers, never shared with third parties. Zero data retention.</p>
+      <div class="feat-visual-body">
+        <div class="voice-chip"><div class="rec-dot"></div> Listening…</div>
+        <div class="voice-waves">
+          <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+          <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+          <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+          <div class="wave-bar"></div>
+        </div>
+        <div class="voice-transcript">
+          "Walk me through a challenging project where you had to work cross-functionally with multiple teams…"
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- How it works -->
-<section class="how">
-  <div class="how-inner">
-    <div class="section-head">
-      <div class="section-label">How it works</div>
-      <h2>From zero to confident<br>in four steps</h2>
+<!-- Feature 2: Resume Upload -->
+<section class="feature-section">
+  <div class="feature-inner reverse">
+    <div class="feature-copy">
+      <div class="feature-eyebrow">Resume Intelligence</div>
+      <h2>Answers built around your real experience</h2>
+      <p>Upload your resume as a PDF and every answer is grounded in your actual skills, projects, and accomplishments — not generic templates. The AI knows who you are before you say a word.</p>
+      <a href="/register.html" class="feature-link">Upload your resume →</a>
     </div>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <h3>Sign Up Free</h3>
-        <p>Create your account in seconds</p>
+    <div class="feat-visual">
+      <div class="feat-visual-header">
+        <div class="mock-dot" style="background:#ff5f57;width:10px;height:10px;border-radius:50%"></div>
+        <div class="mock-dot" style="background:#febc2e;width:10px;height:10px;border-radius:50%"></div>
+        <div class="mock-dot" style="background:#28c840;width:10px;height:10px;border-radius:50%"></div>
       </div>
-      <div class="step-arrow">→</div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <h3>Add Your Context</h3>
-        <p>Upload resume + paste job description</p>
-      </div>
-      <div class="step-arrow">→</div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <h3>Ask Out Loud</h3>
-        <p>Speak any interview question naturally</p>
-      </div>
-      <div class="step-arrow">→</div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <h3>Get Live Answers</h3>
-        <p>Receive tailored, confident responses instantly</p>
+      <div class="resume-visual-body">
+        <div class="resume-file">
+          <div class="resume-icon">📄</div>
+          <div>
+            <div class="resume-filename">resume_2026.pdf</div>
+            <div class="resume-meta">248 KB · Uploaded just now</div>
+          </div>
+        </div>
+        <div class="resume-tags">
+          <span class="resume-tag">Python</span>
+          <span class="resume-tag">Team Lead</span>
+          <span class="resume-tag">Microservices</span>
+          <span class="resume-tag">AWS</span>
+          <span class="resume-tag">5 yrs exp</span>
+        </div>
+        <div class="resume-progress-label">Parsing skills &amp; experience…</div>
+        <div class="resume-progress"><div class="resume-fill" style="width:85%"></div></div>
+        <div class="resume-progress-label" style="text-align:right;color:#60a5fa;">Ready ✓</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Ad Zone B -->
-<div class="ad-zone">
-  <div class="ad-label">Advertisement</div>
-  <div class="ad-content">
-    <span>728 × 90 — Ad Space</span>
+<!-- Feature 3: AI Answers -->
+<section class="feature-section">
+  <div class="feature-inner">
+    <div class="feature-copy">
+      <div class="feature-eyebrow">Real-Time AI Coaching</div>
+      <h2>Confident answers, streamed word by word</h2>
+      <p>Watch your tailored answer appear in real time using the STAR method — Situation, Task, Action, Result — condensed into punchy bullet points you can scan in seconds and say out loud.</p>
+      <a href="/register.html" class="feature-link">Try a question now →</a>
+    </div>
+    <div class="feat-visual">
+      <div class="feat-visual-header">
+        <div class="mock-dot" style="background:#ff5f57;width:10px;height:10px;border-radius:50%"></div>
+        <div class="mock-dot" style="background:#febc2e;width:10px;height:10px;border-radius:50%"></div>
+        <div class="mock-dot" style="background:#28c840;width:10px;height:10px;border-radius:50%"></div>
+      </div>
+      <div class="answer-visual-body">
+        <div class="answer-tag"><div class="hs-pulse"></div> Streaming answer…</div>
+        <div class="answer-question">"Describe a time you improved a process significantly."</div>
+        <ul class="answer-bullets">
+          <li>Identified 3-day manual QA cycle as a bottleneck blocking weekly releases</li>
+          <li>Designed and shipped automated test suite covering 94% of critical paths</li>
+          <li>Release cadence went from weekly to daily; bug escape rate dropped 80%</li>
+          <li>Presented results to VP Eng — rolled out to 2 additional teams</li>
+        </ul>
+      </div>
+    </div>
   </div>
-</div>
+</section>
+
+<!-- Stats -->
+<section class="stats-section">
+  <div class="stats-inner">
+    <div>
+      <div class="stat-num">60+</div>
+      <div class="stat-label">Interview question types covered</div>
+    </div>
+    <div>
+      <div class="stat-num">Free</div>
+      <div class="stat-label">No credit card, no trial period</div>
+    </div>
+    <div>
+      <div class="stat-num">&lt;1s</div>
+      <div class="stat-label">Time to first AI answer word</div>
+    </div>
+  </div>
+</section>
 
 <!-- CTA -->
-<section class="cta-banner">
-  <h2>Ready to ace<br><em class="gradient-text">your interview?</em></h2>
-  <p>Join candidates who practice smarter, not harder.</p>
-  <a href="/register.html" class="btn btn-primary btn-lg">Start Practicing Free →</a>
+<section class="cta-section">
+  <h2>Ready to practice smarter?</h2>
+  <p>Create your free account and start your first session in under 60 seconds.</p>
+  <a href="/register.html" class="btn btn-primary btn-lg">Get Started — It's Free</a>
 </section>
 
-<footer class="footer">
-  <div>© 2026 Interview Coach. Powered by Claude AI.</div>
-  <div class="footer-links">
-    <a href="/about.html">About</a>
-    <a href="/login.html">Sign In</a>
-    <a href="/register.html">Register</a>
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/" class="nav-logo">
+        <div class="icon">🎙️</div>
+        Interview Coach
+      </a>
+      <p>AI-powered interview practice that adapts to your resume and the role you're targeting. Built for candidates who want to show up confident.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="/#features">Features</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/register.html">Get Started</a>
+      <a href="/interview/">Practice Now</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="/about.html">About</a>
+      <a href="/about.html#privacy">Privacy</a>
+    </div>
+    <div class="footer-col">
+      <h4>Account</h4>
+      <a href="/login.html">Sign In</a>
+      <a href="/register.html">Create Account</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Interview Coach. Powered by Claude AI (Anthropic).</span>
+    <span>Made for job seekers everywhere.</span>
   </div>
 </footer>
 
