@@ -20,13 +20,26 @@
       background: linear-gradient(160deg, #0d0d1a 0%, #09090f 60%);
       border-bottom: 1px solid rgba(255,255,255,0.07);
     }
+    /* Circuit grid background */
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(37,99,235,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37,99,235,0.06) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      mask-image: radial-gradient(ellipse at 70% 50%, black 20%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse at 70% 50%, black 20%, transparent 75%);
+    }
     .hero::before {
       content: '';
       position: absolute;
       top: -200px; right: -200px;
       width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(37,99,235,0.18) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(37,99,235,0.2) 0%, transparent 65%);
       pointer-events: none;
+      z-index: 1;
     }
     .hero-inner {
       max-width: 1200px;
@@ -221,94 +234,193 @@
     }
     .feat-visual-body { padding: 24px; }
 
-    /* Voice visual */
-    .voice-waves {
-      display: flex; align-items: center; justify-content: center;
-      gap: 4px; height: 60px; margin-bottom: 20px;
+    /* ── Voice illustration ── */
+    .voice-illustration {
+      padding: 36px 28px;
+      background: linear-gradient(135deg, #0d1a3a 0%, #0a0f1e 100%);
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+      min-height: 320px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
     }
-    .wave-bar {
+    .voice-illustration::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 50% 40%, rgba(37,99,235,0.15) 0%, transparent 60%);
+    }
+    .mic-sonar {
+      position: relative; width: 100px; height: 100px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 28px; z-index: 1;
+    }
+    .sonar-ring {
+      position: absolute; border-radius: 50%;
+      border: 1.5px solid rgba(37,99,235,0.35);
+      animation: sonar 2.4s ease-out infinite;
+    }
+    .sonar-ring:nth-child(1) { width: 110px; height: 110px; animation-delay: 0s; }
+    .sonar-ring:nth-child(2) { width: 150px; height: 150px; animation-delay: 0.7s; }
+    .sonar-ring:nth-child(3) { width: 190px; height: 190px; animation-delay: 1.4s; }
+    @keyframes sonar {
+      0% { opacity: 0.8; transform: scale(0.7); }
+      100% { opacity: 0; transform: scale(1.1); }
+    }
+    .mic-btn {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 30px; position: relative; z-index: 2;
+      box-shadow: 0 0 40px rgba(37,99,235,0.5), 0 0 80px rgba(37,99,235,0.2);
+    }
+    .voice-bars {
+      display: flex; align-items: center; gap: 4px;
+      height: 48px; margin-bottom: 24px; z-index: 1;
+    }
+    .vbar {
       width: 4px; border-radius: 4px;
       background: linear-gradient(to top, #1d4ed8, #60a5fa);
-      animation: wave 1.2s ease-in-out infinite;
+      animation: vwave 1.2s ease-in-out infinite;
     }
-    .wave-bar:nth-child(1) { height: 20px; animation-delay: 0s; }
-    .wave-bar:nth-child(2) { height: 36px; animation-delay: 0.1s; }
-    .wave-bar:nth-child(3) { height: 48px; animation-delay: 0.2s; }
-    .wave-bar:nth-child(4) { height: 56px; animation-delay: 0.15s; }
-    .wave-bar:nth-child(5) { height: 44px; animation-delay: 0.25s; }
-    .wave-bar:nth-child(6) { height: 36px; animation-delay: 0.1s; }
-    .wave-bar:nth-child(7) { height: 52px; animation-delay: 0.3s; }
-    .wave-bar:nth-child(8) { height: 40px; animation-delay: 0.05s; }
-    .wave-bar:nth-child(9) { height: 28px; animation-delay: 0.2s; }
-    .wave-bar:nth-child(10) { height: 18px; animation-delay: 0s; }
-    @keyframes wave { 0%,100%{transform:scaleY(1)} 50%{transform:scaleY(0.4)} }
-    .voice-transcript {
-      background: rgba(37,99,235,0.08);
-      border: 1px solid rgba(37,99,235,0.2);
-      border-radius: 10px; padding: 16px;
-      font-size: 14px; color: rgba(255,255,255,0.7);
+    .vbar:nth-child(1){height:14px;animation-delay:.0s}
+    .vbar:nth-child(2){height:28px;animation-delay:.1s}
+    .vbar:nth-child(3){height:40px;animation-delay:.2s}
+    .vbar:nth-child(4){height:48px;animation-delay:.15s}
+    .vbar:nth-child(5){height:36px;animation-delay:.25s}
+    .vbar:nth-child(6){height:44px;animation-delay:.05s}
+    .vbar:nth-child(7){height:32px;animation-delay:.3s}
+    .vbar:nth-child(8){height:20px;animation-delay:.1s}
+    .vbar:nth-child(9){height:12px;animation-delay:.2s}
+    @keyframes vwave { 0%,100%{transform:scaleY(1)} 50%{transform:scaleY(0.35)} }
+    .voice-q-bubble {
+      background: rgba(37,99,235,0.12);
+      border: 1px solid rgba(37,99,235,0.25);
+      border-radius: 12px; padding: 14px 18px;
+      font-size: 13px; color: rgba(255,255,255,0.75);
       line-height: 1.6; font-style: italic;
+      text-align: center; z-index: 1;
+      max-width: 340px;
     }
-    .voice-chip {
+    .rec-pill {
       display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(37,99,235,0.15); border: 1px solid rgba(37,99,235,0.3);
+      background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.25);
       border-radius: 999px; padding: 4px 12px;
-      font-size: 11px; font-weight: 700; color: #93c5fd;
-      margin-bottom: 16px;
+      font-size: 11px; font-weight: 700; color: #fca5a5;
+      margin-bottom: 20px; z-index: 1;
     }
     .rec-dot { width: 7px; height: 7px; border-radius: 50%; background: #ef4444; animation: blink2 1s infinite; }
     @keyframes blink2 { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-    /* Resume visual */
-    .resume-visual-body { padding: 24px; }
-    .resume-file {
-      display: flex; align-items: center; gap: 12px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 10px; padding: 14px 16px;
-      margin-bottom: 16px;
+    /* ── Resume illustration ── */
+    .resume-illustration {
+      padding: 28px;
+      background: linear-gradient(135deg, #0a0f1e 0%, #0d1a2e 100%);
+      border-radius: 14px; min-height: 320px;
+      position: relative; overflow: hidden;
     }
-    .resume-icon { font-size: 24px; }
-    .resume-filename { font-size: 14px; font-weight: 600; color: #fff; }
-    .resume-meta { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 2px; }
-    .resume-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .resume-illustration::before {
+      content: '';
+      position: absolute; top: 0; right: 0;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle at top right, rgba(96,165,250,0.08) 0%, transparent 70%);
+    }
+    .resume-doc {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 10px; padding: 18px;
+      margin-bottom: 14px;
+    }
+    .resume-doc-header {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+      padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .resume-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, #1d4ed8, #38bdf8);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .resume-name { font-size: 14px; font-weight: 700; color: #fff; }
+    .resume-role-txt { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 1px; }
+    .resume-section-title {
+      font-size: 10px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; color: #60a5fa;
+      margin-bottom: 8px;
+    }
+    .resume-line { height: 7px; border-radius: 4px; background: rgba(255,255,255,0.08); margin-bottom: 6px; }
+    .resume-highlight { background: rgba(37,99,235,0.25); }
+    .resume-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
     .resume-tag {
       background: rgba(37,99,235,0.12); border: 1px solid rgba(37,99,235,0.25);
-      border-radius: 999px; padding: 4px 12px;
-      font-size: 12px; font-weight: 600; color: #93c5fd;
+      border-radius: 999px; padding: 3px 10px;
+      font-size: 11px; font-weight: 600; color: #93c5fd;
     }
-    .resume-progress {
-      background: rgba(255,255,255,0.05);
-      border-radius: 4px; height: 6px; overflow: hidden; margin-bottom: 8px;
+    .resume-upload-row {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(37,99,235,0.08); border: 1px solid rgba(37,99,235,0.2);
+      border-radius: 8px; padding: 10px 14px;
     }
-    .resume-fill { height: 100%; background: linear-gradient(90deg, #1d4ed8, #60a5fa); border-radius: 4px; }
-    .resume-progress-label { font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 14px; }
+    .resume-upload-icon { font-size: 20px; }
+    .resume-filename { font-size: 13px; font-weight: 600; color: #fff; }
+    .resume-meta { font-size: 11px; color: rgba(255,255,255,0.4); }
+    .resume-progress { background: rgba(255,255,255,0.06); border-radius: 4px; height: 4px; overflow: hidden; margin-top: 10px; }
+    .resume-fill { height: 100%; background: linear-gradient(90deg, #1d4ed8, #38bdf8); border-radius: 4px; }
 
-    /* Answer visual */
-    .answer-visual-body { padding: 24px; }
-    .answer-question {
-      font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.7);
+    /* ── Answer illustration ── */
+    .answer-illustration {
+      background: linear-gradient(135deg, #050d1a 0%, #0a0f1e 100%);
+      border-radius: 14px; overflow: hidden; min-height: 320px;
+    }
+    .answer-terminal-bar {
       background: rgba(255,255,255,0.04);
-      border-left: 3px solid #2563eb;
-      padding: 10px 14px; border-radius: 0 8px 8px 0;
-      margin-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      padding: 10px 16px; display: flex; align-items: center; gap: 8px;
     }
-    .answer-bullets { list-style: none; }
-    .answer-bullets li {
-      display: flex; gap: 10px;
-      font-size: 13px; color: rgba(255,255,255,0.7);
-      padding: 8px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      line-height: 1.5;
-      align-items: flex-start;
+    .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .answer-terminal-body { padding: 20px; }
+    .answer-q-row {
+      display: flex; gap: 10px; margin-bottom: 16px; align-items: flex-start;
     }
-    .answer-bullets li:last-child { border-bottom: none; }
-    .answer-bullets li::before { content: '•'; color: #60a5fa; flex-shrink: 0; margin-top: 1px; }
-    .answer-tag {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 11px; font-weight: 700; color: #60a5fa;
-      margin-bottom: 12px;
+    .q-icon {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; flex-shrink: 0; margin-top: 2px;
     }
+    .q-bubble {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 0 10px 10px 10px;
+      padding: 10px 14px; font-size: 13px;
+      color: rgba(255,255,255,0.7); line-height: 1.5;
+    }
+    .answer-a-row { display: flex; gap: 10px; align-items: flex-start; }
+    .a-icon {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; flex-shrink: 0; margin-top: 2px;
+      box-shadow: 0 0 12px rgba(37,99,235,0.4);
+    }
+    .a-bubble {
+      background: rgba(37,99,235,0.1);
+      border: 1px solid rgba(37,99,235,0.22);
+      border-radius: 0 10px 10px 10px;
+      padding: 12px 14px; flex: 1;
+    }
+    .a-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.8px;
+      text-transform: uppercase; color: #60a5fa;
+      margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+    }
+    .a-pulse { width: 6px; height: 6px; border-radius: 50%; background: #60a5fa; animation: apulse 1.5s ease-in-out infinite; }
+    @keyframes apulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .a-bullet {
+      display: flex; gap: 8px; font-size: 12px;
+      color: rgba(255,255,255,0.72); margin-bottom: 7px; line-height: 1.5; align-items: flex-start;
+    }
+    .a-bullet::before { content: '→'; color: #60a5fa; flex-shrink: 0; font-weight: 700; }
 
     /* ── STATS ── */
     .stats-section {
@@ -497,23 +609,21 @@
       <p>Interview Coach listens continuously through your browser's microphone. Ask any question naturally, the same way you would in a real interview room. The moment you pause, AI responds.</p>
       <a href="/register.html" class="feature-link">Start practicing free →</a>
     </div>
-    <div class="feat-visual">
-      <div class="feat-visual-header">
-        <div class="mock-dot" style="background:#ff5f57;width:10px;height:10px;border-radius:50%"></div>
-        <div class="mock-dot" style="background:#febc2e;width:10px;height:10px;border-radius:50%"></div>
-        <div class="mock-dot" style="background:#28c840;width:10px;height:10px;border-radius:50%"></div>
+    <div class="voice-illustration">
+      <div class="rec-pill"><div class="rec-dot"></div> Listening…</div>
+      <div class="mic-sonar">
+        <div class="sonar-ring"></div>
+        <div class="sonar-ring"></div>
+        <div class="sonar-ring"></div>
+        <div class="mic-btn">🎙️</div>
       </div>
-      <div class="feat-visual-body">
-        <div class="voice-chip"><div class="rec-dot"></div> Listening…</div>
-        <div class="voice-waves">
-          <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
-          <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
-          <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
-          <div class="wave-bar"></div>
-        </div>
-        <div class="voice-transcript">
-          "Walk me through a challenging project where you had to work cross-functionally with multiple teams…"
-        </div>
+      <div class="voice-bars">
+        <div class="vbar"></div><div class="vbar"></div><div class="vbar"></div>
+        <div class="vbar"></div><div class="vbar"></div><div class="vbar"></div>
+        <div class="vbar"></div><div class="vbar"></div><div class="vbar"></div>
+      </div>
+      <div class="voice-q-bubble">
+        "Walk me through a challenging project where you had to work cross-functionally with multiple teams…"
       </div>
     </div>
   </div>
@@ -528,30 +638,35 @@
       <p>Upload your resume as a PDF and every answer is grounded in your actual skills, projects, and accomplishments — not generic templates. The AI knows who you are before you say a word.</p>
       <a href="/register.html" class="feature-link">Upload your resume →</a>
     </div>
-    <div class="feat-visual">
-      <div class="feat-visual-header">
-        <div class="mock-dot" style="background:#ff5f57;width:10px;height:10px;border-radius:50%"></div>
-        <div class="mock-dot" style="background:#febc2e;width:10px;height:10px;border-radius:50%"></div>
-        <div class="mock-dot" style="background:#28c840;width:10px;height:10px;border-radius:50%"></div>
+    <div class="resume-illustration">
+      <div class="resume-upload-row" style="margin-bottom:16px">
+        <div class="resume-upload-icon">📄</div>
+        <div>
+          <div class="resume-filename">resume_2026.pdf</div>
+          <div class="resume-meta">248 KB · Uploaded just now</div>
+        </div>
       </div>
-      <div class="resume-visual-body">
-        <div class="resume-file">
-          <div class="resume-icon">📄</div>
+      <div class="resume-progress"><div class="resume-fill" style="width:100%"></div></div>
+      <div style="font-size:11px;color:#60a5fa;text-align:right;margin:6px 0 16px">Parsed ✓</div>
+      <div class="resume-doc">
+        <div class="resume-doc-header">
+          <div class="resume-avatar">👤</div>
           <div>
-            <div class="resume-filename">resume_2026.pdf</div>
-            <div class="resume-meta">248 KB · Uploaded just now</div>
+            <div class="resume-name">Alex Johnson</div>
+            <div class="resume-role-txt">Senior Software Engineer · 5 years</div>
           </div>
         </div>
+        <div class="resume-section-title">Experience</div>
+        <div class="resume-line resume-highlight" style="width:90%"></div>
+        <div class="resume-line" style="width:75%"></div>
+        <div class="resume-line resume-highlight" style="width:82%"></div>
+        <div class="resume-line" style="width:60%"></div>
         <div class="resume-tags">
           <span class="resume-tag">Python</span>
           <span class="resume-tag">Team Lead</span>
-          <span class="resume-tag">Microservices</span>
           <span class="resume-tag">AWS</span>
-          <span class="resume-tag">5 yrs exp</span>
+          <span class="resume-tag">Microservices</span>
         </div>
-        <div class="resume-progress-label">Parsing skills &amp; experience…</div>
-        <div class="resume-progress"><div class="resume-fill" style="width:85%"></div></div>
-        <div class="resume-progress-label" style="text-align:right;color:#60a5fa;">Ready ✓</div>
       </div>
     </div>
   </div>
@@ -566,21 +681,28 @@
       <p>Watch your tailored answer appear in real time using the STAR method — Situation, Task, Action, Result — condensed into punchy bullet points you can scan in seconds and say out loud.</p>
       <a href="/register.html" class="feature-link">Try a question now →</a>
     </div>
-    <div class="feat-visual">
-      <div class="feat-visual-header">
-        <div class="mock-dot" style="background:#ff5f57;width:10px;height:10px;border-radius:50%"></div>
-        <div class="mock-dot" style="background:#febc2e;width:10px;height:10px;border-radius:50%"></div>
-        <div class="mock-dot" style="background:#28c840;width:10px;height:10px;border-radius:50%"></div>
+    <div class="answer-illustration">
+      <div class="answer-terminal-bar">
+        <div class="terminal-dot" style="background:#ff5f57"></div>
+        <div class="terminal-dot" style="background:#febc2e"></div>
+        <div class="terminal-dot" style="background:#28c840"></div>
+        <span style="font-size:12px;color:rgba(255,255,255,0.3);margin-left:8px">Interview Coach · AI Session</span>
       </div>
-      <div class="answer-visual-body">
-        <div class="answer-tag"><div class="hs-pulse"></div> Streaming answer…</div>
-        <div class="answer-question">"Describe a time you improved a process significantly."</div>
-        <ul class="answer-bullets">
-          <li>Identified 3-day manual QA cycle as a bottleneck blocking weekly releases</li>
-          <li>Designed and shipped automated test suite covering 94% of critical paths</li>
-          <li>Release cadence went from weekly to daily; bug escape rate dropped 80%</li>
-          <li>Presented results to VP Eng — rolled out to 2 additional teams</li>
-        </ul>
+      <div class="answer-terminal-body">
+        <div class="answer-q-row">
+          <div class="q-icon">🧑</div>
+          <div class="q-bubble">"Describe a time you improved a process significantly."</div>
+        </div>
+        <div class="answer-a-row">
+          <div class="a-icon">🤖</div>
+          <div class="a-bubble">
+            <div class="a-label"><div class="a-pulse"></div> Streaming answer</div>
+            <div class="a-bullet">Identified 3-day manual QA cycle blocking weekly releases</div>
+            <div class="a-bullet">Designed automated test suite covering 94% of critical paths</div>
+            <div class="a-bullet">Release cadence: weekly → daily; bug escapes dropped 80%</div>
+            <div class="a-bullet">Rolled out to 2 more teams after VP Eng presentation</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
